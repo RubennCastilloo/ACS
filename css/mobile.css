@@ -1,0 +1,81 @@
+@media (max-width: 850px) {
+    nav.movil {
+        display: inherit;
+    }
+    .lista-nav {
+        display: none;
+    }
+    div .navegacion-movil {
+      display: inherit;
+    }
+    nav ul{
+        display: block;
+        text-align: center;
+    }
+    nav li {
+        padding: 3px;
+    }
+    ul .menu-full li {
+        display: none;
+    }
+    .container-movil {
+        display: inline-block;
+        cursor: pointer;
+        padding-right: 10px;
+      }
+      
+      .bar1, .bar2, .bar3 {
+        width: 35px;
+        height: 5px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+      }
+      
+      .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-9px, 6px);
+      }
+      
+      .change .bar2 {opacity: 0;}
+      
+      .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+      }
+      /** Empleados **/
+      .campos {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+      }
+      .campo label {
+        text-align: center;
+      }
+      .navegacion-movil{
+        justify-content: center;
+        text-align: center;
+        background-color: var(--tercerColor);
+        margin: 0;
+      }
+      ul {
+        margin: 0;
+        padding: 10px;
+      }
+
+      .navegacion-movil ul li {
+        list-style: none;
+        padding: 5px;
+      }
+      .navegacion-movil a {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: white; 
+      }
+      .oculto {
+        display: none;
+      }
+      .mostrar {
+        display: inherit;
+      }
+}
