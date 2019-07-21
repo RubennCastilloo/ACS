@@ -28,7 +28,7 @@ function notificacionFlotante(tipo, texto) {
         showConfirmButton: false,
         timer: 3000
       });
-      
+
       Toast.fire({
         type: tipo,
         title: texto
@@ -92,8 +92,8 @@ function eventListeners() {
   if (botonIp) {
     botonIp.addEventListener('click', mostrarIP);
   }
-  
-   
+
+
 }
 
 function leerFormularioAdmin(e) {
@@ -172,14 +172,14 @@ function leerFormularioAdmin(e) {
             //Agregarlo con los empleados
             listadoAdministadores.appendChild(nuevoAdmin);
 
-            
+
             document.querySelector('form').reset();
           }
 
       }
-    } 
+    }
     xhr.send(datosAdmin);
-  }   
+  }
 }
 
 function leerFormularioHorario(e) {
@@ -192,7 +192,7 @@ function leerFormularioHorario(e) {
         if (horaEntrada === '' || horaSalida === '' || dias === '') {
           notificacionFlotante('error', 'Todos los campos son obligatorios');
         } else {
-          
+
           const datosHorario = new FormData();
           datosHorario.append('hora_entrada', horaEntrada);
           datosHorario.append('hora_salida', horaSalida);
@@ -252,7 +252,7 @@ function leerFormularioHorario(e) {
                       }
 
                   }
-              } 
+              }
           xhr.send(datosHorario);
           }
 }
@@ -286,10 +286,10 @@ function leerFiltrarEmpleado(e) {
           const respuesta = JSON.parse(xhr.responseText);
           // console.log(respuesta);
 
-         
+
 
       }
-  } 
+  }
   xhr.send(datosBuscar);
 
         }
@@ -360,7 +360,7 @@ function leerFormularioEmpleado(e) {
             //Crear el icono de editar
             const iconoEditar = document.createElement('i');
             iconoEditar.classList.add('fas', 'fa-pen');
-            
+
             //crea el enlace para editar
             const btnEditar = document.createElement('a');
             btnEditar.appendChild(iconoEditar);
@@ -404,7 +404,7 @@ function leerFormularioEmpleado(e) {
           }
 
       }
-  } 
+  }
   xhr.send(datosEmpleado);
 
 
@@ -420,19 +420,19 @@ function leerRegistro(e) {
   var h = date.getHours(); // 0 - 23
   var m = date.getMinutes(); // 0 - 59
   var s = date.getSeconds(); // 0 - 59
-  
+
       if(h == 0){
           h = 12;
       }
-      
+
       if(h > 12){
           h = h - 12;
       }
-  
+
     h = (h < 10) ? "0" + h : h;
     m = (m < 10) ? "0" + m : m;
     s = (s < 10) ? "0" + s : s;
-  
+
   var horario = h + ":" + m + ":" + s + " ";
   console.log(horario);
 
@@ -446,15 +446,15 @@ const fecha = (diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
         passwordRegistro = document.querySelector('#password-login').value
         horaRegistro = horario;
         fechaRegistro = fecha;
-        
 
-        if (usuarioRegistro === '' || passwordRegistro === '') {
+
+        if (usuarioRegistro === '') {
           notificacionFlotante('error', 'Todos los campos son obligatorios');
         } else {
           const datosRegistro = new FormData();
-          
+
           datosRegistro.append('usuario', usuarioRegistro);
-          datosRegistro.append('password', passwordRegistro);
+          // datosRegistro.append('password', passwordRegistro);
           datosRegistro.append('hora', horaRegistro);
           datosRegistro.append('fecha', fechaRegistro);
 
@@ -472,10 +472,10 @@ const fecha = (diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
           // console.log(respuesta);
           if (respuesta.respuesta === 'correcto') {
             const hora = respuesta.hora;
-            
+
             notificacionFlotante('success', 'Registro Correcto ' + hora);
             document.querySelector('form').reset();
-          }  
+          }
           if (respuesta.respuesta === 'incorrecto') {
             const usuario = respuesta.usuario;
             notificacionFlotante('error', 'Password Incorrecto para "' + usuario + '"');
@@ -487,9 +487,9 @@ const fecha = (diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
           if (respuesta.respuesta === 'noexiste') {
             notificacionFlotante('error', 'Empleado No Existe');
           }
-          
+
       }
-  } 
+  }
   xhr.send(datosRegistro);
    }
 
@@ -506,20 +506,20 @@ function showTime(){
   var m = date.getMinutes(); // 0 - 59
   var s = date.getSeconds(); // 0 - 59
   var session = "AM";
-  
+
   if(h == 0){
       h = 12;
   }
-  
+
   if(h > 12){
       h = h - 12;
       session = "PM";
   }
-  
+
   h = (h < 10) ? "0" + h : h;
   m = (m < 10) ? "0" + m : m;
   s = (s < 10) ? "0" + s : s;
-  
+
   var time = h + ":" + m + ":" + s + " " + session;
 
   const reloj = document.getElementById("reloj")
@@ -528,10 +528,10 @@ function showTime(){
     reloj.innerText = time;
     reloj.textContent = time;
   }
-  
-  
+
+
   setTimeout(showTime, 1000);
-  
+
 }
 
 function soloNumeros(e){
@@ -545,7 +545,7 @@ function soloNumeros(e){
 if(key == especiales[i]){
    tecla_especial = true;
    break;
-      } 
+      }
   }
 
   if(letras.indexOf(tecla)==-1 && !tecla_especial)
@@ -578,7 +578,7 @@ function validarLogin(e) {
 
           const respuesta = JSON.parse(xhr.responseText);
           // console.log(respuesta);
-          
+
           if (respuesta.respuesta === 'correcto') {
             notificacionFlotante('success', 'Login Correcto');
             setTimeout(() => {
@@ -593,17 +593,17 @@ function validarLogin(e) {
           }
 
       }
-  } 
+  }
   xhr.send(datosLogin);
         }
 }
 
 function eliminarEmpleado(e) {
- 
+
   if (e.target.parentElement.classList.contains('btn-borrar')) {
     //Tomar el ID
     const id = e.target.parentElement.getAttribute('data-id');
-    
+
     //Preguntar al usuario si estan seguros
 
     Swal.fire({
@@ -617,9 +617,9 @@ function eliminarEmpleado(e) {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        
+
           const xhr = new XMLHttpRequest();
-          
+
           xhr.open('GET', `inc/model/modelo-borrar.php?id=${id}`, true);
 
           xhr.onload = function() {
@@ -637,7 +637,7 @@ function eliminarEmpleado(e) {
                     'success'
                   )
                 }
-                
+
               }
               if (respuesta.respuesta === 'error') {
                 if (result.value) {
@@ -659,8 +659,8 @@ function eliminarEmpleado(e) {
 
 function leerEditarEmpleado(e) {
   e.preventDefault();
-  
-  
+
+
   const nombresEmpleado = document.querySelector('#nombres').value,
         apellidoPEmpleado = document.querySelector('#apellido-paterno').value,
         apellidoMEmpleado = document.querySelector('#apellido-materno').value,
@@ -712,12 +712,12 @@ function leerEditarEmpleado(e) {
           setTimeout(() => {
             window.location.href = 'empleados.php';
           }, 3000);
-          } 
+          }
           if (respuesta.respuesta === 'error') {
             notificacionFlotante('error', 'No se editó el empleado');
           }
         }
-  } 
+  }
   xhr.send(datosEmpleado);
 
 
@@ -741,9 +741,9 @@ function eliminarHorario(e) {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        
+
           const xhr = new XMLHttpRequest();
-          
+
           xhr.open('GET', `inc/model/borrar-horario.php?id=${id}`, true);
 
           xhr.onload = function() {
@@ -761,7 +761,7 @@ function eliminarHorario(e) {
                     'success'
                   )
                 }
-                
+
               }
               if (respuesta.respuesta === 'error') {
                 if (result.value) {
@@ -800,7 +800,7 @@ function buscarContenido()
 			var cellsOfRow="";
 			var found=false;
 			var compareWith="";
- 
+
 			// Recorremos todas las filas con contenido de la tabla
 			for (var i = 1; i < tableReg.rows.length; i++)
 			{
@@ -823,27 +823,27 @@ function buscarContenido()
 					// si no ha encontrado ninguna coincidencia, esconde la
           // fila de la tabla
           tableReg.rows[i].style.display = 'none';
-          
+
 				}
 			}
 }
-    
+
 function borrarInput(event) {
 
       var codigo = event.which || event.keyCode;
-       
+
       if(codigo === 27){
         document.querySelector('form').reset();
       }
-  
-       
+
+
 }
-    
+
 function eliminarAdministrador(e) {
   if (e.target.parentElement.classList.contains('btn-borrar')) {
     //Tomar el ID
     const id = e.target.parentElement.getAttribute('data-id');
-    
+
     //Preguntar al usuario si estan seguros
 
     Swal.fire({
@@ -857,9 +857,9 @@ function eliminarAdministrador(e) {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        
+
           const xhr = new XMLHttpRequest();
-          
+
           xhr.open('GET', `inc/model/borrar-admin.php?id=${id}`, true);
 
           xhr.onload = function() {
@@ -877,7 +877,7 @@ function eliminarAdministrador(e) {
                     'success'
                   )
                 }
-                
+
               }
               if (respuesta.respuesta === 'error') {
                 if (result.value) {
@@ -899,7 +899,7 @@ function eliminarAdministrador(e) {
 
 function navegacionMovil(x) {
   x.classList.toggle("change");
-  
+
   var menuResponsive = document.getElementById("menu-responsive");
 
     if (menuResponsive.className === "mostrar") {
@@ -907,7 +907,7 @@ function navegacionMovil(x) {
     } else {
       menuResponsive.className = "mostrar";
     }
-  
+
 }
 
 function mostrarIP(e) {

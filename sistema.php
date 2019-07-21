@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'inc/sesiones.php';
 ?>
 
@@ -32,7 +32,7 @@ include 'inc/sesiones.php';
     </nav>
     <div class="navegacion-movil">
                 <ul class="oculto responsive" id="menu-responsive">
-                    <li><a href="login.php?cerrar_sesion=true" class="cerrar-sesion">Cerrar Sesión</a></li>        
+                    <li><a href="login.php?cerrar_sesion=true" class="cerrar-sesion">Cerrar Sesión</a></li>
                 </ul>
         </div>
 </div>
@@ -47,7 +47,7 @@ include 'inc/sesiones.php';
                     </div>
                     <div class="campo-registro">
                         <label for="usuario-login">Usuario</label>
-                        <input 
+                        <input
                             type="text"
                             class="input-campo"
                             placeholder="Usuario"
@@ -56,7 +56,7 @@ include 'inc/sesiones.php';
                     </div>
                     <div class="campo-registro">
                         <label for="password-login">Contraseña</label>
-                        <input 
+                        <input
                             type="password"
                             class="input-campo"
                             placeholder="Password"

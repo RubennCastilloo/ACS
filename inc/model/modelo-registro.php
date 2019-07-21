@@ -1,7 +1,7 @@
 <?php
 
 $usuario = filter_var($_POST['usuario'], FILTER_SANITIZE_STRING);
-$password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+// $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 $hora = ($_POST['hora']);
 $fecha = ($_POST['fecha']);
 
@@ -16,17 +16,17 @@ try {
     if ($nombres_empleado) {
         //El usuario existe, verificar si esta activo
         if ($estado_empleado === 'activo') {
-            if (password_verify($password, $password_empleado)) {
-                $respuesta = array (
-                    'resultado' => 'correcto',
-                    'hora' => $hora,
-                    'fecha' => $fecha,
-                    'id_empleado' => $id_empleado,
-                    'usuario' => $usuario_empleado,
-                    'horario' => $horario_empleado,
-                    'nombres' => $nombres_empleado,
-                    'apellido' => $paterno_empleado
-                  );
+            // if (password_verify($password, $password_empleado)) {
+            //     $respuesta = array (
+            //         'resultado' => 'correcto',
+            //         'hora' => $hora,
+            //         'fecha' => $fecha,
+            //         'id_empleado' => $id_empleado,
+            //         'usuario' => $usuario_empleado,
+            //         'horario' => $horario_empleado,
+            //         'nombres' => $nombres_empleado,
+            //         'apellido' => $paterno_empleado
+            //       );
                   include '../conexion.php';
                 try {
                     $stmt = $conn->prepare("INSERT INTO registros (nombres, apellido, horario, hora, fecha) VALUES (?, ?, ?, ?, ?)");
@@ -56,30 +56,30 @@ try {
                     );
                 }
 
-              } else {
-                //Login Incorrecto
-                $respuesta = array (
-                  'respuesta' => 'incorrecto',
-                  'resultado' => 'Password Incorrecto',
-                  'usuario' => $usuario
-                );
-              } 
-        } else {
+        //} else {
+        //         //Login Incorrecto
+        //         $respuesta = array (
+        //           'respuesta' => 'incorrecto',
+        //           'resultado' => 'Password Incorrecto',
+        //           'usuario' => $usuario
+        //         );
+        //       }
+        // } else {
             $respuesta = array (
                 'respuesta' => 'inactivo',
                 'resultado' => 'Empleado inactivo',
                 'usuario' => $usuario
-              );  
+              );
         }
       } else {
         $respuesta = array (
           'respuesta' => 'noexiste',
           'error' => 'Empleado no existe'
         );
-      } 
+      }
     $stmt->close();
     $conn->close();
-    
+
 
 } catch (Exception $e) {
     $respuesta = array(
