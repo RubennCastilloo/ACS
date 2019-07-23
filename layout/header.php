@@ -23,7 +23,7 @@
                     <div class="bar3"></div>
                 </div>
         <ul class="lista-nav movil">
-            <li><a href="sistema.php">Sistema CA</a></li>
+            <li><a href="sistema2.php">Sistema CA</a></li>
             <li><a href="empleados.php">Empleados</a></li>
             <li><a href="asistencias.php">Asistencias</a></li>
             <li><a href="horarios.php">Horarios</a></li>

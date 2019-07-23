@@ -64,11 +64,11 @@ try {
         //           'usuario' => $usuario
         //         );
         //       }
-        // } else {
+         } else {
             $respuesta = array (
                 'respuesta' => 'inactivo',
                 'resultado' => 'Empleado inactivo',
-                'usuario' => $usuario
+                'usuario' => $nombres_empleado
               );
         }
       } else {

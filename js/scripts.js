@@ -943,3 +943,110 @@ $('.send').on('click', function(){
       $('.country').text(data.country);
   });
 });
+
+
+function addCode(key){
+  var code = document.forms[0].code;
+  if(code.value.length < 4){
+      code.value = code.value + key;
+  }
+  if(code.value.length == 4){
+      // document.getElementById("message").style.display = "block";
+      console.log(code.value);
+      //Registrar Hora
+      var date = new Date();
+      var h = date.getHours(); // 0 - 23
+      var m = date.getMinutes(); // 0 - 59
+      var s = date.getSeconds(); // 0 - 59
+
+          if(h == 0){
+              h = 12;
+          }
+
+          if(h > 12){
+              h = h - 12;
+          }
+
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+
+      var horario = h + ":" + m + ":" + s + " ";
+      console.log(horario);
+
+
+    var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+    var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+    var f=new Date();
+    const fecha = (diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+
+      const usuarioRegistro = code.value,
+            // passwordRegistro = document.querySelector('#password-login').value
+            horaRegistro = horario,
+            fechaRegistro = fecha;
+
+
+            if (usuarioRegistro === '') {
+              notificacionFlotante('error', 'Todos los campos son obligatorios');
+            } else {
+              const datosRegistro = new FormData();
+
+              datosRegistro.append('usuario', usuarioRegistro);
+              // datosRegistro.append('password', passwordRegistro);
+              datosRegistro.append('hora', horaRegistro);
+              datosRegistro.append('fecha', fechaRegistro);
+
+              //Crear el objeto
+              const xhr = new XMLHttpRequest();
+
+              //Abrir la conexion
+              xhr.open('POST', 'inc/model/modelo-registro.php', true);
+
+              //Pasar los datos
+              xhr.onload = function() {
+                if (this.status === 200) {
+
+              const respuesta = JSON.parse(xhr.responseText);
+              // console.log(respuesta);
+              if (respuesta.respuesta === 'correcto') {
+                const hora = respuesta.hora;
+
+                notificacionFlotante('success', 'Registro Correcto ' + hora);
+                // document.querySelector('form').reset();
+                emptyCode();
+              }
+              if (respuesta.respuesta === 'incorrecto') {
+                const usuario = respuesta.usuario;
+                notificacionFlotante('error', 'Password Incorrecto para "' + usuario + '"');
+              }
+              if (respuesta.respuesta === 'inactivo') {
+                console.log(respuesta);
+                const usuario = respuesta.usuario;
+                notificacionFlotante('error', 'Emplead@ "'+ usuario +'" Inactivo');
+                emptyCode();
+              }
+              if (respuesta.respuesta === 'noexiste') {
+                notificacionFlotante('error', 'Empleado No Existe');
+                emptyCode();
+              }
+
+          }
+      }
+      xhr.send(datosRegistro);
+       }
+
+    }
+
+
+
+}
+
+function submitForm(){
+  // document.getElementById("message").style.display = "none";
+}
+
+function emptyCode(){
+  document.forms[0].code.value = "";
+  setTimeout(submitForm,2000);
+
+}

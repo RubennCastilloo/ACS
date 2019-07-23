@@ -262,3 +262,39 @@ div.horario {
   font-size: 4em;
   padding: 10px;
 }
+
+
+/** ESTILOS BOTONES TOUCH**/
+#keypad {margin:auto; margin-top:20px;}
+
+#keypad tr td {
+    vertical-align:middle;
+    text-align:center;
+    border:1px solid #000000;
+    font-size:18px;
+    font-weight:bold;
+    width:60px;
+    height:40px;
+    cursor:pointer;
+    background-color: var(--tercerColor);
+    color: var(--segundoColor);
+    transition: .5s ease-in-out;
+  }
+#keypad tr td:hover {background-color:#999999; color:var(--segundoColorOscuro);}
+
+.display {
+    width:220px;
+    margin:10px auto auto auto;
+    background-color: var(--colorDerechos);
+    color: var(--segundoColor);
+    font-size: 40px;
+    border:1px solid #999999;
+    text-align: center;
+}
+#message {
+    text-align:center;
+    color:#009900;
+    font-size:14px;
+    font-weight:bold;
+    display:none;
+}

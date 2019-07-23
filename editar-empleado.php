@@ -50,13 +50,15 @@ include 'layout/header.php';
                     >
                 </div>
                 <div class="campo">
-                    <label for="usuario">Usuario:</label>
+                    <label for="usuario">No. Empleado:</label>
                     <input 
                         type="text"
                         class="input-campo"
-                        placeholder="Nombre(s)"
+                        placeholder="No. Empleado"
                         id="usuario"
                         value="<?php echo ($empleado['usuario']) ? $empleado['usuario'] : ''; ?>"
+                        onKeyPress="return soloNumeros(event)"
+                        maxlength="4"
                     >
                 </div>
                 <div class="campo">
