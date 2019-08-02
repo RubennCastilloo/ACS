@@ -28,7 +28,8 @@ include 'layout/header.php';
                 <th>Nombre(s)</th>
                 <th>Apellido</th>
                 <th>Horario</th>
-                <th>Hora</th>
+                <th>Hora Entrada</th>
+                <th>Hora Salida</th>
                 <th>Fecha</th>
             </tr>
         </thead>
@@ -41,6 +42,7 @@ include 'layout/header.php';
                 <td><?php echo $horario['apellido']; ?></td>
                 <td><?php echo $horario['horario']; ?></td>
                 <td><?php echo $horario['hora']; ?></td>
+                <td><?php echo $horario['hora_salida']; ?></td>
                 <td><?php echo $horario['fecha']; ?></td>
             </tr>
             <?php 

@@ -49,15 +49,6 @@ include 'layout/header.php';
                     >
                 </div>
                 <div class="campo">
-                    <label for="password">Password:</label>
-                    <input 
-                        type="password"
-                        class="input-campo"
-                        placeholder="Password"
-                        id="password"
-                    >
-                </div>
-                <div class="campo">
                     <label for="departamento">Departamento:</label>
                     <input 
                         type="text"
@@ -77,9 +68,9 @@ include 'layout/header.php';
                 </div>
                 <div class="campo">
                 
-                    <label for="horario">Horario:</label>
+                    <label for="horario">Entrada:</label>
                     
-                    <select name="horario" id="horario">
+                    <select name="horario" id="entrada">
                     
                         <option name="horario">Seleccionar</option>
                         <?php $horarios = obtenerHorarios(); 
@@ -87,7 +78,26 @@ include 'layout/header.php';
 
                             foreach($horarios as $horario) { 
                                 ?>
-                        <option value="<?php echo $horario['dias']; ?> : <?php echo $horario['entrada']; ?> - <?php echo $horario['salida']; ?>"><?php echo $horario['dias']; ?> : <?php echo $horario['entrada']; ?> - <?php echo $horario['salida']; ?></option>
+                        <option value="<?php echo $horario['entrada']; ?>"><?php echo $horario['entrada']; ?></option>
+                                <?php  
+                            }
+                        } ?>
+                    </select>
+                    
+                </div>
+                <div class="campo">
+                
+                    <label for="horario">Salida:</label>
+                    
+                    <select name="horario" id="salida">
+                    
+                        <option name="horario">Seleccionar</option>
+                        <?php $horarios = obtenerHorarios(); 
+                        if ($horarios->num_rows) { 
+
+                            foreach($horarios as $horario) { 
+                                ?>
+                        <option value="<?php echo $horario['salida']; ?>"><?php echo $horario['salida']; ?></option>
                                 <?php  
                             }
                         } ?>
@@ -119,7 +129,8 @@ include 'layout/header.php';
                 <th>Apellido Paterno</th>
                 <th>No. Empleado</th>
                 <th>Estado</th>
-                <th>Horario</th>
+                <th>Entrada</th>
+                <th>Salida</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -134,7 +145,8 @@ include 'layout/header.php';
                         <td><?php echo $empleado['apellido_paterno']; ?></td>
                         <td><?php echo $empleado['usuario']; ?></td>
                         <td><?php echo $empleado['estado']; ?></td>
-                        <td><?php echo $empleado['horario']; ?></td>
+                        <td><?php echo $empleado['entrada']; ?></td>
+                        <td><?php echo $empleado['salida']; ?></td>
                         <td>
                             <a href="editar-empleado.php?id=<?php echo $empleado['id']; ?>" class="btn-editar btn">
                                 <i class="fas fa-pen"></i>

@@ -11,7 +11,7 @@ const crearAdmin = document.querySelector('#crear-admin'),
       listadoEmpleados = document.querySelector('#listado-empleados tbody'),
       listadoAdministadores = document.querySelector('#listado-administradores tbody'),
       listadoHorarios = document.querySelector('#listado-horarios tbody'),
-      editarEmpleado = document.querySelector('.editar-empleado'),
+      editarEmpleado = document.querySelector('#editarEmpleado'),
       inputBuscador = document.querySelector('#buscar'),
       tablaAsistencias = document.querySelector('#lista-asistencias'),
       botonIp = document.querySelector('#mostrar-ip');
@@ -186,17 +186,15 @@ function leerFormularioHorario(e) {
   e.preventDefault();
 
   const horaEntrada = document.querySelector('#hora-entrada').value,
-        horaSalida = document.querySelector('#hora-salida').value,
-        dias = document.querySelector('#dias').value;
+        horaSalida = document.querySelector('#hora-salida').value;
 
-        if (horaEntrada === '' || horaSalida === '' || dias === '') {
+        if (horaEntrada === '' || horaSalida === '') {
           notificacionFlotante('error', 'Todos los campos son obligatorios');
         } else {
 
           const datosHorario = new FormData();
           datosHorario.append('hora_entrada', horaEntrada);
           datosHorario.append('hora_salida', horaSalida);
-          datosHorario.append('dias', dias);
 
               //Crear el objeto
               const xhr = new XMLHttpRequest();
@@ -217,8 +215,6 @@ function leerFormularioHorario(e) {
                         nuevoHorario.innerHTML = `
                           <td>${respuesta.hora_entrada}</td>
                           <td>${respuesta.hora_salida}</td>
-                          <td>${respuesta.dias}</td>
-                          <td>${respuesta.id_insertado}</td>
                           <td>${respuesta.id_insertado}</td>
                         `;
 
@@ -302,10 +298,10 @@ function leerFormularioEmpleado(e) {
         apellidoPEmpleado = document.querySelector('#apellido-paterno').value,
         apellidoMEmpleado = document.querySelector('#apellido-materno').value,
         usuarioEmpleado = document.querySelector('#usuario').value,
-        passwordEmpleado = document.querySelector('#password').value,
         departamentoEmpleado = document.querySelector('#departamento').value,
         puestoEmpleado = document.querySelector('#puesto').value,
-        horarioEmpleado = document.querySelector('#horario').value,
+        entradaEmpleado = document.querySelector('#entrada').value,
+        salidaEmpleado = document.querySelector('#salida').value,
         estadoEmpleado = document.querySelector('#activo').checked;
 
         if (estadoEmpleado === true) {
@@ -314,7 +310,7 @@ function leerFormularioEmpleado(e) {
           estadoEmpleadoDatos = 'inactivo';
         }
 
-        if (nombresEmpleado === '' || apellidoPEmpleado === '' || apellidoMEmpleado === '' || usuarioEmpleado === '' || passwordEmpleado === '' || departamentoEmpleado === '' || puestoEmpleado === '' || horarioEmpleado === 'Seleccionar') {
+        if (nombresEmpleado === '' || apellidoPEmpleado === '' || apellidoMEmpleado === '' || usuarioEmpleado === '' || departamentoEmpleado === '' || puestoEmpleado === '' || entradaEmpleado === 'Seleccionar' || salidaEmpleado === 'Seleccionar') {
           notificacionFlotante('error', 'Todos los campos son obligatorios');
         } else {
           const datosEmpleado = new FormData();
@@ -322,10 +318,10 @@ function leerFormularioEmpleado(e) {
           datosEmpleado.append('apellido_paterno', apellidoPEmpleado);
           datosEmpleado.append('apellido_materno', apellidoMEmpleado);
           datosEmpleado.append('usuario', usuarioEmpleado);
-          datosEmpleado.append('password', passwordEmpleado);
           datosEmpleado.append('departamento', departamentoEmpleado);
           datosEmpleado.append('puesto', puestoEmpleado);
-          datosEmpleado.append('horario', horarioEmpleado);
+          datosEmpleado.append('entrada', entradaEmpleado);
+          datosEmpleado.append('salida', salidaEmpleado);
           datosEmpleado.append('estado', estadoEmpleadoDatos);
 
 
@@ -351,7 +347,8 @@ function leerFormularioEmpleado(e) {
               <td>${respuesta.apellido_paterno}</td>
               <td>${respuesta.usuario}</td>
               <td>${respuesta.estado}</td>
-              <td>${respuesta.horario}</td>
+              <td>${respuesta.entrada}</td>
+              <td>${respuesta.salida}</td>
             `;
 
             //Contenedor para los botones
@@ -469,7 +466,7 @@ const fecha = (diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.ge
             if (this.status === 200) {
 
           const respuesta = JSON.parse(xhr.responseText);
-          // console.log(respuesta);
+          console.log(respuesta);
           if (respuesta.respuesta === 'correcto') {
             const hora = respuesta.hora;
 
@@ -665,10 +662,10 @@ function leerEditarEmpleado(e) {
         apellidoPEmpleado = document.querySelector('#apellido-paterno').value,
         apellidoMEmpleado = document.querySelector('#apellido-materno').value,
         usuarioEmpleado = document.querySelector('#usuario').value,
-        passwordEmpleado = document.querySelector('#password').value,
         departamentoEmpleado = document.querySelector('#departamento').value,
         puestoEmpleado = document.querySelector('#puesto').value,
-        horarioEmpleado = document.querySelector('#horario').value,
+        entradaEmpleado = document.querySelector('#entrada').value,
+        salidaEmpleado = document.querySelector('#salida').value,
         estadoEmpleado = document.querySelector('#activo').checked,
         idRegistro = document.querySelector('#id').value;
 
@@ -678,7 +675,7 @@ function leerEditarEmpleado(e) {
           estadoEmpleadoDatos = 'inactivo';
         }
 
-        if (nombresEmpleado === '' || apellidoPEmpleado === '' || apellidoMEmpleado === '' || usuarioEmpleado === '' || passwordEmpleado === '' || departamentoEmpleado === '' || puestoEmpleado === '' || horarioEmpleado === 'Seleccionar') {
+        if (nombresEmpleado === '' || apellidoPEmpleado === '' || apellidoMEmpleado === '' || usuarioEmpleado === '' || departamentoEmpleado === '' || puestoEmpleado === '' || entradaEmpleado === 'Seleccionar' || salidaEmpleado === 'Seleccionar') {
           notificacionFlotante('error', 'Todos los campos son obligatorios');
         } else {
           const datosEmpleado = new FormData();
@@ -686,10 +683,10 @@ function leerEditarEmpleado(e) {
           datosEmpleado.append('apellido_paterno', apellidoPEmpleado);
           datosEmpleado.append('apellido_materno', apellidoMEmpleado);
           datosEmpleado.append('usuario', usuarioEmpleado);
-          datosEmpleado.append('password', passwordEmpleado);
           datosEmpleado.append('departamento', departamentoEmpleado);
           datosEmpleado.append('puesto', puestoEmpleado);
-          datosEmpleado.append('horario', horarioEmpleado);
+          datosEmpleado.append('entrada', entradaEmpleado);
+          datosEmpleado.append('salida', salidaEmpleado);
           datosEmpleado.append('estado', estadoEmpleadoDatos);
           datosEmpleado.append('id', idRegistro);
 
@@ -976,9 +973,9 @@ function addCode(key){
 
 
     var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-    var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+    // var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
     var f=new Date();
-    const fecha = (diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+    const fecha = (f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
 
       const usuarioRegistro = code.value,
             // passwordRegistro = document.querySelector('#password-login').value
@@ -1007,14 +1004,26 @@ function addCode(key){
                 if (this.status === 200) {
 
               const respuesta = JSON.parse(xhr.responseText);
-              // console.log(respuesta);
-              if (respuesta.respuesta === 'correcto') {
+              console.log(respuesta);
+              if (respuesta.respuesta === 'entrada') {
                 const hora = respuesta.hora;
-
-                notificacionFlotante('success', 'Registro Correcto ' + hora);
-                // document.querySelector('form').reset();
+    
+                notificacionFlotante('success', 'Entrada ' + hora);
                 emptyCode();
               }
+              if (respuesta.respuesta === 'salida') {
+                const hora = respuesta.hora;
+    
+                notificacionFlotante('success', 'Salida ' + hora);
+                emptyCode();
+              }
+              // if (respuesta.respuesta === 'correcto') {
+              //   const hora = respuesta.hora;
+
+              //   notificacionFlotante('success', 'Registro Correcto ' + hora);
+              //   // document.querySelector('form').reset();
+              //   emptyCode();
+              // }
               if (respuesta.respuesta === 'incorrecto') {
                 const usuario = respuesta.usuario;
                 notificacionFlotante('error', 'Password Incorrecto para "' + usuario + '"');

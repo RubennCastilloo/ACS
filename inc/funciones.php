@@ -3,7 +3,7 @@
 function obtenerEmpleados() {
      include 'conexion.php';
      try {
-          return $conn->query("SELECT id, nombres, apellido_paterno, apellido_materno, usuario, departamento, puesto, horario, estado FROM empleados");
+          return $conn->query("SELECT id, nombres, apellido_paterno, apellido_materno, usuario, departamento, puesto, entrada, salida, estado FROM empleados");
      } catch (Exception $e) {
           echo "Error!" . $e->getMessage() . "<br>";
           return false;
@@ -14,7 +14,7 @@ function obtenerEmpleados() {
 function obtenerEmpleado($id) {
      include 'conexion.php';
      try {
-          return $conn->query("SELECT id, nombres, apellido_paterno, apellido_materno, usuario, departamento, puesto, horario, estado FROM empleados WHERE id = $id");
+          return $conn->query("SELECT id, nombres, apellido_paterno, apellido_materno, usuario, departamento, puesto, entrada, salida, estado FROM empleados WHERE id = $id");
      } catch (Exception $e) {
           echo "Error!" . $e->getMessage() . "<br>";
           return false;
@@ -24,7 +24,7 @@ function obtenerEmpleado($id) {
 function obtenerHorarios() {
      include 'conexion.php';
      try {
-          return $conn->query("SELECT id, entrada, salida, dias FROM horarios");
+          return $conn->query("SELECT id, entrada, salida FROM horarios");
      } catch (Exception $e) {
           echo "Error!" . $e->getMessage() . "<br>";
           return false;
@@ -34,7 +34,7 @@ function obtenerHorarios() {
 function obtenerHorario($id) {
      include 'conexion.php';
      try {
-          return $conn->query("SELECT id, entrada, salida, dias FROM horarios WHERE id = $id");
+          return $conn->query("SELECT id, entrada, salida FROM horarios WHERE id = $id");
      } catch (Exception $e) {
           echo "Error!" . $e->getMessage() . "<br>";
           return false;
@@ -44,7 +44,7 @@ function obtenerHorario($id) {
 function obtenerRegistros() {
      include 'conexion.php';
      try {
-          return $conn->query("SELECT id, nombres, apellido, horario, hora, fecha FROM registros");
+          return $conn->query("SELECT id, nombres, apellido, horario, hora, hora_salida, fecha FROM registros");
      } catch (Exception $e) {
           echo "Error!" . $e->getMessage() . "<br>";
           return false;

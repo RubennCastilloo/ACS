@@ -1,12 +1,12 @@
-<?php 
+<?php
 include 'inc/sesiones.php';
 include 'inc/funciones.php';
-include 'layout/header.php'; 
+include 'layout/header.php';
 
     $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
     if (!$id) {
         header('Location: empleados.php');
-        
+
     }
     $respuesta = obtenerEmpleado($id);
     $empleado = $respuesta->fetch_assoc();
@@ -21,7 +21,7 @@ include 'layout/header.php';
             <div class="campos">
                 <div class="campo">
                     <label for="nombres">Nombre(s):</label>
-                    <input 
+                    <input
                         type="text"
                         class="input-campo"
                         placeholder="Nombre(s)"
@@ -31,7 +31,7 @@ include 'layout/header.php';
                 </div>
                 <div class="campo">
                     <label for="apellido-paterno">Apellido Paterno:</label>
-                    <input 
+                    <input
                         type="text"
                         class="input-campo"
                         placeholder="Apellido Paterno"
@@ -41,7 +41,7 @@ include 'layout/header.php';
                 </div>
                 <div class="campo">
                     <label for="apellido-materno">Apellido Materno:</label>
-                    <input 
+                    <input
                         type="text"
                         class="input-campo"
                         placeholder="Apellido Materno"
@@ -51,7 +51,7 @@ include 'layout/header.php';
                 </div>
                 <div class="campo">
                     <label for="usuario">No. Empleado:</label>
-                    <input 
+                    <input
                         type="text"
                         class="input-campo"
                         placeholder="No. Empleado"
@@ -61,18 +61,10 @@ include 'layout/header.php';
                         maxlength="4"
                     >
                 </div>
-                <div class="campo">
-                    <label for="password">Password:</label>
-                    <input 
-                        type="password"
-                        class="input-campo"
-                        placeholder="Password"
-                        id="password"
-                    >
-                </div>
+                
                 <div class="campo">
                     <label for="departamento">Departamento:</label>
-                    <input 
+                    <input
                         type="text"
                         class="input-campo"
                         placeholder="Departamento"
@@ -82,7 +74,7 @@ include 'layout/header.php';
                 </div>
                 <div class="campo">
                     <label for="puesto">Puesto:</label>
-                    <input 
+                    <input
                         type="text"
                         class="input-campo"
                         placeholder="Puesto"
@@ -92,34 +84,49 @@ include 'layout/header.php';
                 </div>
                 <div class="campo">
                     <label for="horario">Horario:</label>
-                    <select name="horario" id="horario">
+                    <select name="horario" id="entrada">
                         <option name="horario">Seleccionar</option>
-                        <?php $horarios = obtenerHorarios(); 
-                        if ($horarios->num_rows) { 
+                        <?php $horarios = obtenerHorarios();
+                        if ($horarios->num_rows) {
 
-                            foreach($horarios as $horario) { 
+                            foreach($horarios as $horario) {
                                 ?>
-                        <option value="<?php echo $horario['dias']; ?> : <?php echo $horario['entrada']; ?> - <?php echo $horario['salida']; ?>"><?php echo $horario['dias']; ?> : <?php echo $horario['entrada']; ?> - <?php echo $horario['salida']; ?></option>
-                                <?php  
+                        <option value="<?php echo $horario['entrada']; ?>"><?php echo $horario['entrada']; ?></option>
+                                <?php
+                            }
+                        } ?>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label for="horario">Horario:</label>
+                    <select name="horario" id="salida">
+                        <option name="horario">Seleccionar</option>
+                        <?php $horarios = obtenerHorarios();
+                        if ($horarios->num_rows) {
+
+                            foreach($horarios as $horario) {
+                                ?>
+                        <option value="<?php echo $horario['salida']; ?>"><?php echo $horario['salida']; ?></option>
+                                <?php
                             }
                         } ?>
                     </select>
                 </div>
                 <div class="campo">
                     <label for="activo">Activo:</label>
-                    <input 
+                    <input
                         type="checkbox"
                         name="activo"
                         id="activo"
                     >
                 </div>
-                
+
             </div>
             <div class="campo">
-                    <input type="hidden" class="ditar-empleado" id="id" value="<?php echo $empleado['id']; ?>">
-                    <input type="submit" class="btn-crear editar-empleado" id="" value="Editar Empleado">
+                    <input type="hidden" class="editar-empleado" id="id" value="<?php echo $empleado['id']; ?>">
+                    <input type="submit" class="btn-crear editar-empleado" id="editarEmpleado" value="Editar Empleado">
             </div>
-            
+
         </form>
 </div>
 

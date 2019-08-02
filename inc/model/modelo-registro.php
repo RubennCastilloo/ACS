@@ -4,44 +4,30 @@ $usuario = filter_var($_POST['usuario'], FILTER_SANITIZE_STRING);
 // $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 $hora = ($_POST['hora']);
 $fecha = ($_POST['fecha']);
+$vacio = "";
 
 include '../conexion.php';
 
 try {
-    $stmt = $conn->prepare("SELECT id, nombres, apellido_paterno, apellido_materno, usuario, password, departamento, puesto, horario, estado FROM empleados WHERE usuario = ?");
+    $stmt = $conn->prepare("SELECT id, nombres, apellido_paterno, apellido_materno, usuario, departamento, puesto, entrada, salida, estado FROM empleados WHERE usuario = ?");
     $stmt->bind_param('s', $usuario);
     $stmt->execute();
-    $stmt->bind_result($id_empleado, $nombres_empleado, $paterno_empleado, $materno_empleado, $usuario_empleado, $password_empleado, $departamento_empleado, $puesto_empleado, $horario_empleado, $estado_empleado);
+    $stmt->bind_result($id_empleado, $nombres_empleado, $paterno_empleado, $materno_empleado, $usuario_empleado, $departamento_empleado, $puesto_empleado, $entrada_empleado, $salida_empleado, $estado_empleado);
     $stmt->fetch();
     if ($nombres_empleado) {
         //El usuario existe, verificar si esta activo
         if ($estado_empleado === 'activo') {
-            // if (password_verify($password, $password_empleado)) {
-            //     $respuesta = array (
-            //         'resultado' => 'correcto',
-            //         'hora' => $hora,
-            //         'fecha' => $fecha,
-            //         'id_empleado' => $id_empleado,
-            //         'usuario' => $usuario_empleado,
-            //         'horario' => $horario_empleado,
-            //         'nombres' => $nombres_empleado,
-            //         'apellido' => $paterno_empleado
-            //       );
+            if ($hora >= '06:00:00' && $hora < '10:00:00') {
+            
                   include '../conexion.php';
                 try {
-                    $stmt = $conn->prepare("INSERT INTO registros (nombres, apellido, horario, hora, fecha) VALUES (?, ?, ?, ?, ?)");
-                    $stmt->bind_param('sssss', $nombres_empleado, $paterno_empleado, $horario_empleado, $hora, $fecha);
+                    $stmt = $conn->prepare("INSERT INTO registros (nombres, apellido, horario, hora, hora_salida, fecha) VALUES (?, ?, ?, ?, ?, ?)");
+                    $stmt->bind_param('ssssss', $nombres_empleado, $paterno_empleado, $horario_empleado, $hora, $vacio, $fecha);
                     $stmt->execute();
                     if ($stmt->affected_rows > 0) {
                         $respuesta = array(
-                            'respuesta' => 'correcto',
-                            'hora' => $hora,
-                            'fecha' => $fecha,
-                            'nombres' => $nombres_empleado,
-                            'usuario' => $usuario,
-                            'apellido' => $paterno_empleado,
-                            'horario' => $horario_empleado,
-                            'id_insertado' => $stmt->insert_id
+                            'respuesta' => 'entrada',
+                            'hora' => $hora
                 );
             } else {
                 $respuesta = array(
@@ -56,21 +42,34 @@ try {
                     );
                 }
 
-        //} else {
-        //         //Login Incorrecto
-        //         $respuesta = array (
-        //           'respuesta' => 'incorrecto',
-        //           'resultado' => 'Password Incorrecto',
-        //           'usuario' => $usuario
-        //         );
-        //       }
-         } else {
-            $respuesta = array (
-                'respuesta' => 'inactivo',
-                'resultado' => 'Empleado inactivo',
-                'usuario' => $nombres_empleado
-              );
-        }
+        } 
+            else if ($hora >= '10:05:00' && $hora < '24:00:00') {
+            
+                  include '../conexion.php';
+                  
+                try {
+                    $stmt = $conn->prepare("UPDATE registros SET hora_salida = ? WHERE nombres = ?");
+                    $stmt->bind_param('ss', $hora, $nombres_empleado);
+                    $stmt->execute();
+                    if ($stmt->affected_rows > 0) {
+                        $respuesta = array(
+                            'respuesta' => 'salida',
+                            'hora' => $hora
+                );
+            } else {
+                $respuesta = array(
+                    'respuesta' => 'error'
+                );
+            }
+                $stmt->close();
+                $conn->close();
+                } catch (Exception $e) {
+                    $respuesta = array(
+                        'error' => $e->getMessage()
+                    );
+                }
+
+        } 
       } else {
         $respuesta = array (
           'respuesta' => 'noexiste',
@@ -79,7 +78,7 @@ try {
       }
     $stmt->close();
     $conn->close();
-
+    }
 
 } catch (Exception $e) {
     $respuesta = array(
