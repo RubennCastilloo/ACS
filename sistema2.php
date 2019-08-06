@@ -1,5 +1,5 @@
 <?php
-include 'inc/sesiones.php';
+
 ?>
 
 <!DOCTYPE html>

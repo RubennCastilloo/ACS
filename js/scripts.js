@@ -956,13 +956,13 @@ function addCode(key){
       var m = date.getMinutes(); // 0 - 59
       var s = date.getSeconds(); // 0 - 59
 
-          if(h == 0){
-              h = 12;
-          }
+          // if(h == 0){
+          //     h = 12;
+          // }
 
-          if(h > 12){
-              h = h - 12;
-          }
+          // if(h > 12){
+          //     h = h - 12;
+          // }
 
         h = (h < 10) ? "0" + h : h;
         m = (m < 10) ? "0" + m : m;
@@ -1001,6 +1001,10 @@ function addCode(key){
 
               //Pasar los datos
               xhr.onload = function() {
+                if (this.status === 500) {
+                  notificacionFlotante('error', '500 Internal Server Error');
+                  emptyCode();
+                }
                 if (this.status === 200) {
 
               const respuesta = JSON.parse(xhr.responseText);
@@ -1017,6 +1021,19 @@ function addCode(key){
                 notificacionFlotante('success', 'Salida ' + hora);
                 emptyCode();
               }
+              if (respuesta.respuesta === 'error') {
+                notificacionFlotante('error','Houston tenemos un problema');
+                emptyCode();
+              }
+              if (respuesta.respuesta === 'fueratiempo') {
+                notificacionFlotante('error', 'Empleado Fuera de Tiempo');
+                emptyCode();
+              }
+              if (respuesta.respuesta === 'sinEntrada') {
+                notificacionFlotante('error', 'No hay entradas registradas');
+                emptyCode();
+              }
+              
               // if (respuesta.respuesta === 'correcto') {
               //   const hora = respuesta.hora;
 
