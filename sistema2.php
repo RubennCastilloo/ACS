@@ -70,7 +70,7 @@
                             <tr>
                                 <td onclick="addCode('*');">*</td>
                                 <td onclick="addCode('0');">0</td>
-                                <td onclick="addCode('#');">#</td>
+                                <td class='delete-btn'><i class="fas fa-backspace"></i></td>
                             </tr>
                         </table>
                  </div>

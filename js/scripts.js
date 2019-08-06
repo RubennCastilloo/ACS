@@ -14,7 +14,8 @@ const crearAdmin = document.querySelector('#crear-admin'),
       editarEmpleado = document.querySelector('#editarEmpleado'),
       inputBuscador = document.querySelector('#buscar'),
       tablaAsistencias = document.querySelector('#lista-asistencias'),
-      botonIp = document.querySelector('#mostrar-ip');
+      botonIp = document.querySelector('#mostrar-ip'),
+      deleteBtn = document.querySelector('.delete-btn');
 
 
 eventListeners();
@@ -91,6 +92,9 @@ function eventListeners() {
   // }
   if (botonIp) {
     botonIp.addEventListener('click', mostrarIP);
+  }
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', emptyCode);
   }
 
 
@@ -933,13 +937,13 @@ Swal.queue([{
 }])
 }
 
-$('.send').on('click', function(){
+// $('.send').on('click', function(){
 
-  $.getJSON('https://ipapi.co/'+$('.ip').val()+'/json', function(data){
-      $('.city').text(data.city);
-      $('.country').text(data.country);
-  });
-});
+//   $.getJSON('https://ipapi.co/'+$('.ip').val()+'/json', function(data){
+//       $('.city').text(data.city);
+//       $('.country').text(data.country);
+//   });
+// });
 
 
 function addCode(key){

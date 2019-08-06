@@ -61,8 +61,8 @@ try {
                   include '../conexion.php';
                   
                 try {
-                    $stmt = $conn->prepare("UPDATE registros SET hora_salida = ? WHERE fecha = ?");
-                    $stmt->bind_param('ss', $hora, $fecha);
+                    $stmt = $conn->prepare("UPDATE registros SET hora_salida = ? WHERE fecha = ? AND usuario = ?");
+                    $stmt->bind_param('sss', $hora, $fecha, $usuario_empleado);
                     $stmt->execute();
                     if ($stmt->affected_rows > 0) {
                         $respuesta = array(
